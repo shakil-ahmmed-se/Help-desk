@@ -12,7 +12,7 @@ export default function Navbar() {
         alt="Help desk Logo"
         width={70}
         quality={100}
-        placeholder='empty'
+        placeholder='blur'
          />
         <h1>Help Desk</h1>
         <Link href="/">Dashboard</Link>

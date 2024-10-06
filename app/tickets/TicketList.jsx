@@ -1,8 +1,12 @@
+import Link from "next/link";
 
 async function getTickets() {
+
+  await new Promise(resolve => setTimeout(resolve, 2000))
+
   const res = await fetch('http://localhost:4000/tickets', {
     next: {
-      revalidate: 0 // TODO: this should be updated in the future when tickets are updated to reflect the current state of the server state change detection process
+      revalidate: 60 
     }
   })
   const data = await res.json()
@@ -17,13 +21,14 @@ export default async function TicketList() {
     <>
       {
         tickets.map((ticket) =>(   
-          <div key={ticket.id} class='card my-5'>
-            <h3>{ticket.title}</h3>
-            <p>{ticket.body.slice( 0, 200) }...</p>
-            <div className={`pill ${ticket.priority}`}>
-              {ticket.priority} Priority
-            </div>
-
+          <div key={ticket.id} className='card my-5'>
+            <Link href={`tickets/${ticket.id}`}>
+              <h3>{ticket.title}</h3>
+              <p>{ticket.body.slice( 0, 200) }...</p>
+              <div className={`pill ${ticket.priority}`}>
+                {ticket.priority} Priority
+              </div>
+            </Link>
           </div>
         ) )
       }
